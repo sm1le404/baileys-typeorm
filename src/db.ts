@@ -1,4 +1,4 @@
-import { DataSource, DataSourceOptions } from 'typeorm';
+import { DataSource, DataSourceOptions, Repository } from 'typeorm';
 import { Auth } from './entity/Auth';
 
 class BaileysDataSource {
@@ -6,7 +6,7 @@ class BaileysDataSource {
 
   static async getInstance(
     dataSourceOptions: DataSourceOptions,
-  ): Promise<DataSource> {
+  ): Promise<Repository<Auth>> {
     if (!BaileysDataSource.instance) {
       BaileysDataSource.instance = await new DataSource({
         ...dataSourceOptions,
@@ -15,7 +15,7 @@ class BaileysDataSource {
       await BaileysDataSource.instance.synchronize(false);
     }
 
-    return BaileysDataSource.instance;
+    return BaileysDataSource.instance.getRepository(Auth);
   }
 }
 

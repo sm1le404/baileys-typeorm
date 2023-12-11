@@ -8,7 +8,6 @@ import {
 } from '@whiskeysockets/baileys';
 import { DataSourceOptions } from 'typeorm';
 import BaileysDataSource from './db';
-import { Auth } from './entity/auth';
 
 const KEY_MAP: { [T in keyof SignalDataTypeMap]: string } = {
   'pre-key': 'preKeys',
@@ -27,12 +26,11 @@ export const useAuthStateWithTypeOrm = async (
   state: AuthenticationState;
   saveState: () => Promise<any>;
 }> => {
-  const dataSource = await BaileysDataSource.getInstance({
+  const authRepository = await BaileysDataSource.getInstance({
     ...dataSourceOption,
     entityPrefix: tablePrefix,
   });
 
-  const authRepository = await dataSource.getRepository(Auth);
   let creds: AuthenticationCreds;
   let keys: any = {};
 
