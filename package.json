@@ -1,6 +1,6 @@
 {
   "name": "baileys-typeorm",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Package for storing all the data from baileys in whatever database you want to use by using typeorm",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
