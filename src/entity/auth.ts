@@ -1,13 +1,14 @@
 import {
+  BaseEntity,
   Column,
   Entity,
   PrimaryGeneratedColumn,
   Unique,
-} from "typeorm";
+} from 'typeorm';
 
 @Entity()
 @Unique(['key'])
-export class Auth {
+export class Auth extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
