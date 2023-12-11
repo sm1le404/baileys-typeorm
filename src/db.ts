@@ -1,5 +1,5 @@
 import { DataSource, DataSourceOptions, Repository } from 'typeorm';
-import { Auth } from './entity/Auth';
+import { Auth } from './entity/auth';
 
 class BaileysDataSource {
   protected static instance: DataSource;
