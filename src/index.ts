@@ -45,16 +45,23 @@ export const useAuthStateWithTypeOrm = async (
           keys: {},
         });
 
-  const saveState = () =>
-    authRepository.upsert(
+  const saveState = () => {
+    if (!existingAuth) {
+      return authRepository.save({
+        key: clientKey,
+        value: JSON.stringify({ creds, keys }, BufferJSON.replacer, 2),
+      });
+    }
+    return authRepository.update(
+      {
+        id: existingAuth.id,
+      },
       {
         key: clientKey,
         value: JSON.stringify({ creds, keys }, BufferJSON.replacer, 2),
       },
-      {
-        conflictPaths: ['key'],
-      },
     );
+  };
 
   return {
     state: {
