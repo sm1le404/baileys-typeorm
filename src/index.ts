@@ -25,6 +25,7 @@ export const useAuthStateWithTypeOrm = async (
 ): Promise<{
   state: AuthenticationState;
   saveState: () => Promise<any>;
+  clearState: () => Promise<any>;
 }> => {
   const authRepository = await BaileysDataSource.getInstance({
     ...dataSourceOption,
@@ -63,6 +64,12 @@ export const useAuthStateWithTypeOrm = async (
     );
   };
 
+  const clearState = async () => {
+    await authRepository.delete({
+      key: clientKey,
+    });
+  };
+
   return {
     state: {
       creds,
@@ -91,5 +98,6 @@ export const useAuthStateWithTypeOrm = async (
       },
     },
     saveState,
+    clearState,
   };
 };
